@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { updateProfile } from "../Api";
 import { toast } from "react-toastify";
 import { useUserContext } from "../context";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const Setting = () => {
   const [file, setFile] = useState(null);
@@ -89,7 +91,7 @@ const Setting = () => {
       <div className="content_part setting_part">
         {/* <img className="setting_img" src="/images/Group 389.svg" alt="" /> */}
         <div className="setting_img">
-          <label for="fileInput" class="image-container">
+          <label htmlFor="fileInput" class="image-container">
             {(user?.filename !== null &&
               user?.filename !== "" &&
               user?.filename !== undefined) ||
@@ -135,7 +137,7 @@ const Setting = () => {
         <div className="fields_flex justify_content">
           <div className="item_fields pr_4">
             <div className="pb-4 pr_4">
-              <label for="fisrtName">First name</label>
+              <label htmlFor="fisrtName">First name</label>
               <br></br>
               <input
                 className="input_cls"
@@ -148,7 +150,7 @@ const Setting = () => {
               />
             </div>
             <div className="pb_4">
-              <label for="lastName">Last name:</label>
+              <label htmlFor="lastName">Last name:</label>
               <br></br>
               <input
                 className="input_cls"
@@ -161,7 +163,7 @@ const Setting = () => {
           </div>
           <div>
             <div className="pb-4">
-              <label for="email">Email</label>
+              <label htmlFor="email">Email</label>
               <br></br>
               <input
                 className="input_cls"
@@ -171,9 +173,9 @@ const Setting = () => {
                 onChange={(e) => setdata({ ...data, email: e.target.value })}
               />
             </div>
-            <label for="phoneNumber">Phone No</label>
+            <label htmlFor="phoneNumber">Phone No</label>
             <br></br>
-            <input
+            {/* <input
               className="input_cls"
               type="text"
               id="phoneNumber"
@@ -181,13 +183,20 @@ const Setting = () => {
               onChange={(e) =>
                 setdata({ ...data, phoneNumber: e.target.value })
               }
+            /> */}
+            <PhoneInput
+              country={"us"}
+              // value={values?.phoneNumber}
+              className="input_cls"
+              onChange={(phone) => setdata({ ...data, phoneNumber: phone })}
+              inputStyle={{ width: "100%" }}
             />
           </div>
         </div>
         <div className="fields_flex pt-0">
           <div className="item_fields_2 justify_content">
             <div className="pr-4 pb_4">
-              <label for="oldPassword">Old Password</label>
+              <label htmlFor="oldPassword">Old Password</label>
               <br></br>
               <input
                 className="input_cls"
@@ -200,7 +209,7 @@ const Setting = () => {
               />
             </div>
             <div className="pb_4 cpad">
-              <label for="newPassword">New Password</label>
+              <label htmlFor="newPassword">New Password</label>
               <br></br>
               <input
                 className="input_cls"

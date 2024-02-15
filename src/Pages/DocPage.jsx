@@ -3,7 +3,7 @@ import Modal from "../Components/Modal";
 import { getNewNotification, getTask, updateTaskNotification } from "../Api";
 import { toast } from "react-toastify";
 import { useUserContext } from "../context";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Kanban from "../Components/Kanban/Kanban";
 
 import bellIcon from ".././assests/bellIcon.svg";
@@ -12,7 +12,7 @@ const DocPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [data, setData] = useState([]);
   const [notification, setNotification] = useState([]);
-
+  const navigation = useNavigate();
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -22,6 +22,7 @@ const DocPage = () => {
     getUser();
     // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     getAllNotification();
     // eslint-disable-next-line
@@ -109,7 +110,11 @@ const DocPage = () => {
 
   const handleNotificationUpdate = async () => {
     try {
-      await updateTaskNotification(id);
+      const res = await updateTaskNotification(id);
+
+      if (res?.data?.success) {
+        navigation(`/notifications/${id}`);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -132,13 +137,13 @@ const DocPage = () => {
                 className="bell_icon"
               >
                 <div className="bell">
-                  <Link to={`/notifications/${id}`}>
-                    <img
-                      className="setting pr-2"
-                      src={bellIcon}
-                      alt="bell-icon"
-                    />
-                  </Link>
+                  {/* <Link to={`/notifications/${id}`}> */}
+                  <img
+                    className="setting pr-2"
+                    src={bellIcon}
+                    alt="bell-icon"
+                  />
+                  {/* </Link> */}
                 </div>
                 {notification?.length === 0 ? null : (
                   <div className="notification_number">

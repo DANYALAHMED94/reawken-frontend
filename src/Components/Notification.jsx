@@ -10,7 +10,7 @@ export default function Notification() {
   useEffect(() => {
     getAllNotification();
     // eslint-disable-next-line
-  }, []);
+  }, [notification]);
 
   const getAllNotification = async () => {
     try {
@@ -31,7 +31,7 @@ export default function Notification() {
       });
     }
   };
-  console.log(notification);
+
   const handleDelteNotifications = async (id) => {
     try {
       await deleteTaskNotification(id);
@@ -43,7 +43,7 @@ export default function Notification() {
   function formatDate(inputDate) {
     const parts = inputDate.split("-");
     // Rearrange the date parts to the desired format
-    const formattedDate = `${parts[1]}/${parts[2]}/${parts[0]}`;
+    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
     return formattedDate;
   }
 

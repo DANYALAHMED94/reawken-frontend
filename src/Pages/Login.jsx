@@ -23,7 +23,7 @@ const Login = () => {
           <div className="fields_flex fields_flex_mbl">
             <div className="login_with">
               <div className="pb-4">
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <br></br>
                 <input
                   className="input_cls login_with"
@@ -38,7 +38,7 @@ const Login = () => {
           <div className="fields_flex pt-0 pb-0 fields_flex_mbl">
             <div className="item_fields_2 login_width">
               <div className=" pb_4 login_with">
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <br></br>
                 <input
                   className="input_cls login_with"

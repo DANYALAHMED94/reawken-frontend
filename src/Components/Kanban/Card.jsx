@@ -58,7 +58,7 @@ const Card = ({ card, title }) => {
             <div>{card?.taskName}</div>
             <div>{card?.userId?.firstName}</div>
           </div>
-          <img className="" src="/images/More.svg" alt=""></img>
+          {/* <img className="" src="/images/More.svg" alt=""></img> */}
         </div>
         {/* <img className="d_img" src="/images/Progress.svg" alt="" /> */}
         <div className="child_nxt">

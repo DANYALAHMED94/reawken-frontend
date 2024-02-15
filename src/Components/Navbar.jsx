@@ -61,7 +61,10 @@ const Navbar = ({ user }) => {
           {user ? (
             <div className="buttons">
               <div className="btn_start mbl_none">
-                <button onClick={() => handleLogout()} className="registerbtn">
+                <button
+                  onClick={() => handleLogoutButton()}
+                  className="registerbtn"
+                >
                   Log out
                 </button>
               </div>

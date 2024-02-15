@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { signupUser } from "../Api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -70,7 +72,7 @@ const Signup = () => {
           <div className="fields_flex">
             <div className="item_fields pr_4">
               <div className="pb-4 pr_4">
-                <label for="firstName">First name</label>
+                <label htmlFor="firstName">First name</label>
                 <br></br>
                 <input
                   className="input_cls"
@@ -83,7 +85,7 @@ const Signup = () => {
                 />
               </div>
               <div className="pb_4">
-                <label for="lastName">Last name:</label>
+                <label htmlFor="lastName">Last name:</label>
                 <br></br>
                 <input
                   className="input_cls"
@@ -99,7 +101,7 @@ const Signup = () => {
 
             <div>
               <div className="pb-4">
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <br></br>
                 <input
                   className="input_cls"
@@ -109,9 +111,9 @@ const Signup = () => {
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
               </div>
-              <label for="phoneNumber">Phone No</label>
+              <label htmlFor="phoneNumber">Phone No</label>
               <br></br>
-              <input
+              {/* <input
                 className="input_cls"
                 type="text"
                 id="phoneNumber"
@@ -119,6 +121,13 @@ const Signup = () => {
                 onChange={(e) =>
                   setData({ ...data, phoneNumber: e.target.value })
                 }
+              /> */}
+              <PhoneInput
+                country={"us"}
+                // value={values?.phoneNumber}
+                className="input_cls"
+                onChange={(phone) => setData({ ...data, phoneNumber: phone })}
+                inputStyle={{ width: "100%" }}
               />
             </div>
           </div>
@@ -126,7 +135,7 @@ const Signup = () => {
           <div className="fields_flex pt-0">
             <div className="item_fields_2 pr-4">
               <div className="pr-4 pb_4">
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <br></br>
                 <input
                   className="input_cls"
@@ -139,7 +148,7 @@ const Signup = () => {
                 />
               </div>
               <div className="pb_4 cpad">
-                <label for="confirmPassword">Confirm Password</label>
+                <label htmlFor="confirmPassword">Confirm Password</label>
                 <br></br>
                 <input
                   className="input_cls"

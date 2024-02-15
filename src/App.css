@@ -1072,6 +1072,7 @@ hr {
   border: 0.727px solid rgba(0, 179, 236, 0.7);
   background: #fff;
   outline: none;
+  padding-left: 8px;
   box-shadow: 0px 0px 20px 0px rgba(0, 104, 137, 0.11);
 }
 .task_input > select {
@@ -1351,6 +1352,7 @@ button {
   flex-direction: column;
   align-items: center;
   padding: 5px;
+  margin-top: 10px;
 }
 
 .notification {
@@ -1395,4 +1397,9 @@ button {
 .created_at > p {
   font-size: 10px;
   color: white;
+}
+
+/*phone input*/
+.react-tel-input {
+  width: 200px !important;
 }

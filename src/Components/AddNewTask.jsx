@@ -8,10 +8,8 @@ const AddNewTask = ({ setModalOpen }) => {
     taskName: "",
     taskStatus: "",
     dueDate: "",
-    reminder: {
-      date: "",
-      time: "",
-    },
+    date: "",
+    time: "",
     userId: "",
   });
 
@@ -62,18 +60,18 @@ const AddNewTask = ({ setModalOpen }) => {
     }
   };
 
-  const handleReminderChange = (e) => {
-    const { name, value } = e.target;
+  // const handleReminderChange = (e) => {
+  //   const { name, value } = e.target;
 
-    const updatedTask = { ...data };
+  //   const updatedTask = { ...data };
 
-    updatedTask.reminder = {
-      ...updatedTask.reminder,
-      [name]: value,
-    };
+  //   updatedTask.reminder = {
+  //     ...updatedTask.reminder,
+  //     [name]: value,
+  //   };
 
-    setData(updatedTask);
-  };
+  //   setData(updatedTask);
+  // };
 
   return (
     <div className="new_task">
@@ -118,9 +116,9 @@ const AddNewTask = ({ setModalOpen }) => {
           >
             <input
               type="date"
-              onChange={(e) => handleReminderChange(e)}
+              onChange={(e) => setData({ ...data, date: e.target.value })}
               name="date"
-              value="data.reminder.date"
+              // value="data.reminder.date"
             />
           </div>
           <div
@@ -129,9 +127,9 @@ const AddNewTask = ({ setModalOpen }) => {
           >
             <input
               type="time"
-              onChange={(e) => handleReminderChange(e)}
+              onChange={(e) => setData({ ...data, time: e.target.value })}
               name="time"
-              value="data.reminder.time"
+              // value="data.reminder.time"
             />
           </div>
         </div>
