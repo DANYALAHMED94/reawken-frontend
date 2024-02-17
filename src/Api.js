@@ -281,3 +281,26 @@ export const deleteTaskNotification = async (id) => {
     return error;
   }
 };
+
+export const updateTask2 = async (data, id) => {
+  try {
+    const res = await axios.put(`/task/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res;
+  } catch (error) {
+    // toast.error(`${error?.response?.data?.message}`, {
+    //   position: "top-right",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    // });
+    return error;
+  }
+};

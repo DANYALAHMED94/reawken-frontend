@@ -38,7 +38,6 @@ const Setting = () => {
     setFile(event.target.files[0]);
     setPreviewImage(URL.createObjectURL(event.target.files[0]));
   };
-  console.log(file, "file");
   const handleFormData = (values) => {
     var formData = new FormData();
     formData.append("firstName", values?.fisrtName);
@@ -111,20 +110,6 @@ const Setting = () => {
                 className="h-full w-full rounded-full"
               />
             )}
-            {/* {user?.filename ? (
-              <img
-                src={
-                  previewImage ??
-                  `${process.env.REACT_APP_IMAGE_BASE_URL}/${user?.filename}`
-                }
-                alt="Clickable"
-              />
-            ) : (
-              <img
-                src={previewImage ? previewImage : "/images/Group 389.svg"}
-                alt="Clickable"
-              />
-            )} */}
 
             <input
               onChange={(e) => handlefile(e)}

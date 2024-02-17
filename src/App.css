@@ -218,7 +218,7 @@ h4 {
 }
 .main_f {
   border: 1.3px solid #e1d6d6;
-  height: 270px;
+  height: 100%;
   border-radius: 10px;
 }
 .card_flex_dash {
@@ -233,20 +233,39 @@ h4 {
 }
 .child_nxt {
   display: flex;
-  padding-top: 20px;
-
+  padding: 10px 20px;
   border-radius: 10px;
-  padding-left: 20px;
-  padding-bottom: 20px;
-  padding-right: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   justify-content: space-between;
 }
+.card_heading {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #1c1d22;
+}
+.card_heading2 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #1c1d2280;
+  margin-top: 5px;
+}
 .date_btnn {
-  background-color: #b8e8fe;
+  background-color: #00acff1a;
   border-radius: 20px;
   border: none;
-  padding: 10px;
+  padding: 12px 16px;
+  font-family: Exo 2;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
 }
 .d_img {
   width: 302px;
@@ -274,6 +293,7 @@ h4 {
   padding-right: 25px;
   border: 1px solid #00b3ec;
   margin-right: 40px;
+  border: 1px solid #000;
 }
 .crd_flex {
   display: flex;
@@ -346,10 +366,13 @@ h4 {
 }
 .child_flex {
   display: flex;
-  padding-top: 20px;
+  padding-top: 5px;
   padding-left: 20px;
   padding-right: 25px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
+}
+.btn1 {
+  margin-top: 60px;
 }
 .tik {
   padding-right: 20px;
@@ -682,6 +705,9 @@ label {
   .signup_img {
     display: none;
   }
+  .btn1 {
+    margin-top: 0px !important;
+  }
   .hero_flex {
     flex-direction: column;
   }
@@ -691,6 +717,7 @@ label {
   .board {
     width: 100% !important;
     margin: 16px 0px !important;
+    padding: 8px !important;
   }
   .card_flex_dash {
     grid-template-columns: repeat(
@@ -1402,4 +1429,40 @@ button {
 /*phone input*/
 .react-tel-input {
   width: 200px !important;
+}
+
+/*progress bar*/
+.progress-container {
+  width: 100%;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 5px;
+  background-color: #00acff;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+.progres {
+  padding: 0 20px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.progress-text {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #1c1d2280 !important;
+}
+.pro1 {
+  display: flex;
+  align-items: center;
 }
