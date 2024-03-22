@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import { useUserContext } from "../context";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Kanban from "../Components/Kanban/Kanban";
-
+import profile from "../assests/profile-dummy.jpg";
 import bellIcon from ".././assests/bellIcon.svg";
+
 const DocPage = () => {
   const [toggleState, setToggleState] = useState(1);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -18,6 +19,7 @@ const DocPage = () => {
   };
   const { id } = useParams();
   const { user, setUser } = useUserContext();
+
   useEffect(() => {
     getUser();
     // eslint-disable-next-line
@@ -27,6 +29,7 @@ const DocPage = () => {
     getAllNotification();
     // eslint-disable-next-line
   }, [notification]);
+
   const getUser = () => {
     const data = localStorage.getItem("user");
     if (data) {
@@ -48,7 +51,7 @@ const DocPage = () => {
         setData(res?.data?.data);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -95,7 +98,7 @@ const DocPage = () => {
         setNotification(res?.data?.data);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -119,6 +122,12 @@ const DocPage = () => {
       console.log(error);
     }
   };
+
+  const handleLogoutButton = () => {
+    localStorage.removeItem("user");
+    // instance.logoutRedirect();
+    navigation("/login");
+  };
   return (
     <>
       <div className="doc_Page">
@@ -129,6 +138,11 @@ const DocPage = () => {
           </div>
 
           <div className="header_child_2">
+            <div>
+              <p onClick={() => handleLogoutButton()} className="para">
+                Logout
+              </p>
+            </div>
             <div className="d-flex pr-2 fff">
               <div
                 onClick={() => {
@@ -160,10 +174,8 @@ const DocPage = () => {
                   />
                 </Link>
               </div>
-              {/* <img className="cale " src="/images/calender.svg" alt="" /> */}
               <div className="title_Doc pl-3">{getCurrentDateFormatted()}</div>
               <div className="image-container">
-                {/* <img className="pl-3" src="/images/Profile.svg" alt="" /> */}
                 {user?.filename !== null &&
                 user?.filename !== "" &&
                 user?.filename !== undefined ? (
@@ -186,7 +198,7 @@ const DocPage = () => {
                       borderRadius: "360px",
                       margin: "0px 10px",
                     }}
-                    src="/images/Group 389.svg"
+                    src={profile}
                     alt="Profile"
                     className=""
                   />

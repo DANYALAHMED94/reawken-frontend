@@ -12,6 +12,7 @@ const AddNewTask = ({ setModalOpen }) => {
     time: "",
     userId: "",
   });
+  const [isClicked, setIsClicked] = useState(false);
 
   const { user, setUser } = useUserContext();
   useEffect(() => {
@@ -30,49 +31,23 @@ const AddNewTask = ({ setModalOpen }) => {
   };
 
   const handleTask = async (values) => {
+    setIsClicked(true);
     const newData = { ...values, userId: user?.userId };
     try {
       const res = await addTask(newData);
       if (res?.data?.success) {
-        toast.success(`${res?.data?.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
         setModalOpen(false);
+        window.location.reload();
       }
-    } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    } catch (error) {}
   };
-
-  // const handleReminderChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   const updatedTask = { ...data };
-
-  //   updatedTask.reminder = {
-  //     ...updatedTask.reminder,
-  //     [name]: value,
-  //   };
-
-  //   setData(updatedTask);
-  // };
-
+  const notifyWithPromise = () => {
+    toast.promise(handleTask(data), {
+      pending: "Loading...",
+      success: (data) => `Data fetched successfully: ${data}`,
+      error: (error) => `Error fetching data: ${error.message}`,
+    });
+  };
   return (
     <div className="new_task">
       <p>Add new task</p>
@@ -137,7 +112,9 @@ const AddNewTask = ({ setModalOpen }) => {
 
       <div className="task_btn">
         <button onClick={() => setModalOpen(false)}>Cancel</button>
-        <button onClick={() => handleTask(data)}>Done</button>
+        <button disabled={isClicked} onClick={() => notifyWithPromise()}>
+          Add
+        </button>
       </div>
     </div>
   );

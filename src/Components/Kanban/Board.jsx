@@ -5,11 +5,10 @@ import { useDrop } from "react-dnd";
 import Card from "./Card";
 import Modal from "../Modal";
 import { updateTask } from "../../Api";
+import Loader from "../Loader";
 
-const Board = ({ title, data }) => {
+const Board = ({ title, data, loading }) => {
   const [isModalOpen, setModalOpen] = useState(false);
-
-  //   const [cards, setCards] = useState([]);
 
   const [, drop] = useDrop({
     accept: "CARD", // Make sure this matches the type set in useDrag
@@ -17,13 +16,13 @@ const Board = ({ title, data }) => {
   });
 
   const handleCardDrop = async (item) => {
-    // console.log(item, title);
     const data = {
       taskId: item.taskId,
       taskStatus: title,
     };
     try {
       await updateTask(data);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -46,9 +45,15 @@ const Board = ({ title, data }) => {
       </div>
       {/* <button onClick={addCard}>Add Card</button> */}
       <div className="card-container">
-        {data?.map((card) => (
-          <Card key={card._id} card={card} title={title} />
-        ))}
+        {loading ? (
+          <Loader />
+        ) : (
+          <div>
+            {data?.map((card) => (
+              <Card key={card._id} card={card} title={title} />
+            ))}
+          </div>
+        )}
       </div>
       <Modal setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
     </div>

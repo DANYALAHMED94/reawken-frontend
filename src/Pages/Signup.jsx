@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signupUser } from "../Api";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -14,7 +14,6 @@ const Signup = () => {
     confirmPassword: "",
     phoneNumber: "",
   });
-
   const navigation = useNavigate();
 
   const handleSignUp = async (values) => {
@@ -22,29 +21,31 @@ const Signup = () => {
       try {
         const res = await signupUser(values);
         if (res?.status) {
-          toast.success("Sign up successful", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-          navigation("/login");
+          // toast.success("Sign up successful", {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          //   theme: "light",
+          // });
+          navigation("/pricing");
+        } else {
+          // toast(<Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />, { autoClose: 3000 })
         }
       } catch (error) {
-        toast.error(`${error?.response?.data.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        // toast.error(`${error?.response?.data.message}`, {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
         navigation("/register");
       }
     } else {
@@ -60,11 +61,27 @@ const Signup = () => {
       });
     }
   };
+
+  const notifyWithPromise = () => {
+    toast.promise(handleSignUp(data), {
+      pending: "Loading...",
+      success: (data) => `Data fetched successfully: ${data}`,
+      error: (error) => `Error fetching data: ${error.message}`,
+    });
+  };
   return (
-    <div style={{ background: "#FBFCFF", height: "100vh" }}>
+    <div className="signup">
+      <Link to="/">
+        <img
+          style={{ marginTop: "10px", marginLeft: "5px" }}
+          className="arrow2"
+          src="/images/left-arrow (2).png"
+          alt=""
+        />
+      </Link>
       <img className="ab_img" src="/images/Circle (1).svg" alt="" />
       <div className="Signup_flex">
-        <div>
+        <div className="new-img">
           <img className="signup_img" src="/images/sign_up.png" alt="" />
         </div>
         <div className="content_part">
@@ -133,8 +150,8 @@ const Signup = () => {
           </div>
 
           <div className="fields_flex pt-0">
-            <div className="item_fields_2 pr-4">
-              <div className="pr-4 pb_4">
+            <div className="item_fields_2 p-0 pr-4">
+              <div className="pr-4 p-0 pb_4">
                 <label htmlFor="password">Password</label>
                 <br></br>
                 <input
@@ -162,8 +179,8 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          <div className="btn">
-            <button onClick={() => handleSignUp(data)} className="signup_btn">
+          <div className="btn2">
+            <button onClick={() => notifyWithPromise()} className="signup_btn">
               Signup
             </button>
           </div>

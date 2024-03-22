@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import Modal from "../Modal";
 import Progress from "../../assests/menu.svg";
-import TitleModal from "../TitleModal";
-import CommentAndAttachmentModal from "../CommentAndAttachmentModal";
+// import TitleModal from "../TitleModal";
+// import CommentAndAttachmentModal from "../CommentAndAttachmentModal";
+import EditModal from "../EditModal";
 
 const Card = ({ card }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [titleModal, setTitleModal] = useState(false);
-  const [commentModal, setCommentModal] = useState(false);
+  // const [commentModal, setCommentModal] = useState(false);
   useEffect(() => {
     const interval = setInterval(() => {
       if (progress < 80) {
@@ -77,7 +78,7 @@ const Card = ({ card }) => {
             className=""
             src="/images/More.svg"
             onClick={() => {
-              setTitleModal(true);
+              setIsEditModalOpen(true);
             }}
             alt=""
           ></img>
@@ -89,53 +90,41 @@ const Card = ({ card }) => {
               Progress
             </p>
           </div>
-          <h1 style={{ fontWeight: "600" }} className="card_heading">
+          {/* <h1 style={{ fontWeight: "600" }} className="card_heading">
             5/10
-          </h1>
+          </h1> */}
         </div>
-        <div style={{ padding: "0px 20px" }}>
+        {/* <div style={{ padding: "0px 20px" }}>
           <div className="progress-container">
             <div
               className="progress-bar"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-        </div>
+        </div> */}
         <div className="child_nxt">
           <div>
             <button className="date_btnn">{formatDate(card.dueDate)}</button>
           </div>
           <div className="d-flex" style={{ marginTop: "7px" }}>
             <div className="d-flex">
-              <img
-                src="/images/mssg.svg"
-                alt=""
-                onClick={() => setCommentModal(true)}
-              />
-              <div style={{ marginTop: "10px" }}>4</div>
+              <img src="/images/mssg.svg" alt="" />
+              {/* <div style={{ marginTop: "10px" }}>4</div> */}
             </div>
 
             <div className="d-flex" style={{ marginLeft: "10px" }}>
-              <img
-                src="/images/attech.svg"
-                alt=""
-                onClick={() => setCommentModal(true)}
-              />
-              <div style={{ marginTop: "10px" }}>2</div>
+              <img src="/images/attech.svg" alt="" />
+              {/* <div style={{ marginTop: "10px" }}>2</div> */}
             </div>
           </div>
         </div>
       </div>
 
       <Modal setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
-      <TitleModal
-        setTitleModal={setTitleModal}
-        titleModal={titleModal}
-        id={card?._id}
-      />
-      <CommentAndAttachmentModal
-        commentModal={commentModal}
-        setCommentModal={setCommentModal}
+
+      <EditModal
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
         id={card?._id}
       />
     </div>

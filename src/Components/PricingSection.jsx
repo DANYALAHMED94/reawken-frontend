@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const PricingSection = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -26,7 +27,7 @@ const PricingSection = () => {
         We can't explain ourselves like our customers and their numbers can.
       </p>
       <div className="crd_flex">
-        <div className="crd1">
+        {/* <div className="crd1">
           <div className="crd_title">Free</div>
           <div className="content_5">
             The Free Plan is perfect for those who are just starting their
@@ -56,8 +57,10 @@ const PricingSection = () => {
             <img className="tik" src="/images/icon.svg" alt="" />
             <div>Basic Progress Tracking</div>
           </div>
-          <button className="get_btn btn1">Get Started for Free</button>
-        </div>
+          <Link to="/register">
+            <button className="get_btn btn1">Get Started for Free</button>
+          </Link>
+        </div> */}
 
         <div className="crd1">
           <div className="crd_title">Premium</div>
@@ -67,7 +70,7 @@ const PricingSection = () => {
             all the benefits of the Free Plan, plus::
           </div>
           <div className="title_4">Starts at</div>
-          <div className="title_1">$260</div>
+          <div className="title_1">{toggleState === 1 ? "$10" : "$100"}</div>
           <div className="title_4">yearly</div>
           <div className="child_flex">
             <img className="tik" src="/images/icon.svg" alt="" />
@@ -93,7 +96,9 @@ const PricingSection = () => {
             <img className="tik" src="/images/icon.svg" alt="" />
             <div>Priority Customer Support</div>
           </div>
-          <button className="get_btn">Upgrade to Premium</button>
+          <Link to="/register">
+            <button className="get_btn">Get Started</button>
+          </Link>
         </div>
       </div>
     </div>

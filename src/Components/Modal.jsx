@@ -1,6 +1,5 @@
 import React from "react";
 import AddNewTask from "./AddNewTask";
-// import './Modal.css'; // Import your CSS file for styling
 
 const Modal = ({ isModalOpen, setModalOpen }) => {
   const closeModal = () => {

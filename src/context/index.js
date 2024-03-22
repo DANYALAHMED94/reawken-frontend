@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { loginUser } from "../Api";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 export const UserContext = createContext();
 
@@ -16,29 +15,33 @@ export const UserContextProvider = ({ children }) => {
       if (res?.data?.success) {
         localStorage.setItem("user", JSON.stringify(res?.data));
         setUser({ isAuth: true, ...res?.data });
-        toast.success(`${res?.data?.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        navigation(`/doc/${res?.data?.userId}`);
+        // toast.success(`${res?.data?.message}`, {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
+        if (res?.data?.role === "Admin") {
+          navigation("/blog");
+        } else {
+          navigation(`/doc/${res?.data?.userId}`);
+        }
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      // toast.error(`${error?.response?.data.message}`, {
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      // });
       navigation("/signup");
     }
   };

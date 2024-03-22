@@ -14,6 +14,7 @@ function Kanban() {
   const [todo, setTodo] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
+  const [loading1, setLoading1] = useState(true);
 
   useEffect(() => {
     // getAllTasks();
@@ -29,9 +30,10 @@ function Kanban() {
       const res = await getTodoTask(id);
       if (res?.data?.success) {
         setTodo(res?.data?.data);
+        setLoading1(false);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -51,7 +53,7 @@ function Kanban() {
         setInProgress(res?.data?.data);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -70,7 +72,7 @@ function Kanban() {
         setCompleted(res?.data?.data);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -85,7 +87,7 @@ function Kanban() {
   return (
     <div className="App">
       <div className="board-container">
-        <Board title="Todo" data={todo} />
+        <Board title="Todo" loading={loading1} data={todo} />
         <Board title="In Progress" data={inProgress} />
         <Board title="Completed" data={completed} />
       </div>

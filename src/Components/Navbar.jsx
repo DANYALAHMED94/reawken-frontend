@@ -25,7 +25,11 @@ const Navbar = ({ user }) => {
             <Link to="/pricing">
               <button className="nav_items">Pricing</button>
             </Link>
-            <button className="nav_items ">Blogs</button>
+
+            <Link to="/blog">
+              <button className="nav_items ">Blogs</button>
+            </Link>
+
             {user ? (
               <div className="buttons">
                 <div className="btn_start desktop_none">

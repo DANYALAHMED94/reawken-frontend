@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { deleteTaskNotification, getNotification } from "../Api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Notification() {
@@ -19,7 +19,7 @@ export default function Notification() {
         setNotification(res?.data?.data);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -53,36 +53,43 @@ export default function Notification() {
     return value;
   }
   return (
-    <div className="notification-section">
-      <h1>Notifications</h1>
-      {notification?.map((obj, _) => (
-        <div key={obj._id}>
-          {obj.notification.message ? (
-            <div key={obj._id} className="notification-container">
-              <div className="delete_notification">
-                <button
-                  onClick={() => {
-                    handleDelteNotifications(obj._id);
-                  }}
-                >
-                  X
-                </button>
-              </div>
-              <div className="notification">
-                <span>{obj.notification.message}</span>
-              </div>
-              <div style={{ width: "100%" }}>
-                <div className="reminder">
-                  Reminder: <span>{formatDate(obj.reminder.date)}</span>
+    <>
+      <div style={{ padding: "20px" }}>
+        <Link to="/">
+          <img className="arrow2" src="/images/left-arrow (2).png" alt="" />
+        </Link>
+      </div>
+      <div className="notification-section">
+        <h1>Notifications</h1>
+        {notification?.map((obj, _) => (
+          <div key={obj._id}>
+            {obj.notification.message ? (
+              <div key={obj._id} className="notification-container">
+                <div className="delete_notification">
+                  <button
+                    onClick={() => {
+                      handleDelteNotifications(obj._id);
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
-                <div className="created_at">
-                  <p>{formatFullDate(obj.createdAt)}</p>
+                <div className="notification">
+                  <span>{obj.notification.message}</span>
+                </div>
+                <div style={{ width: "100%" }}>
+                  <div className="reminder">
+                    Reminder: <span>{formatDate(obj.reminder.date)}</span>
+                  </div>
+                  <div className="created_at">
+                    <p>{formatFullDate(obj.createdAt)}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : null}
-        </div>
-      ))}
-    </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

@@ -291,16 +291,105 @@ export const updateTask2 = async (data, id) => {
     });
     return res;
   } catch (error) {
-    // toast.error(`${error?.response?.data?.message}`, {
-    //   position: "top-right",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    // });
+    return error;
+  }
+};
+
+export const getComment = async (id) => {
+  try {
+    const res = await axios.get(`/pdf/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addComment = async (data, id) => {
+  try {
+    const res = await axios.put(`/add-comment/${id}`, data);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getTaskById = async (id) => {
+  try {
+    const res = await axios.get(`/task-by-id/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getUserById = async (id) => {
+  try {
+    const res = await axios.get(`/get-user-by-id/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createBlog = async (form) => {
+  try {
+    const res = await axios.post(`/blog`, form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res;
+  } catch (error) {
+    toast.error(`${error?.response?.data?.message}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    return error;
+  }
+};
+
+export const getAllBlogs = async () => {
+  try {
+    const res = await axios.get(`/get-all-blog`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateBlog = async (data, id) => {
+  try {
+    const res = await axios.put(`/blog/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getBlogById = async (id) => {
+  try {
+    const res = await axios.get(`/get-blog-by-id/${id}`);
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteBlogById = async (id) => {
+  try {
+    const res = await axios.delete(`/delete-blog-by-id/${id}`);
+    return res;
+  } catch (error) {
     return error;
   }
 };

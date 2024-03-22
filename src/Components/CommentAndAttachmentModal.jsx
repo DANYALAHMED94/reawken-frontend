@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { updateTask2 } from "../Api";
+import React, { useState, useRef } from "react";
+import { updateTask2, addComment } from "../Api";
 import { toast } from "react-toastify";
+import Comment from "./Comment";
+import Plus from "../assests/plus.svg";
 
 const CommentAndAttachmentModal = ({ commentModal, setCommentModal, id }) => {
   const [data, setData] = useState({
     comment: "",
   });
   const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
   const closeModal = () => {
     setCommentModal(false);
   };
@@ -16,12 +19,41 @@ const CommentAndAttachmentModal = ({ commentModal, setCommentModal, id }) => {
   };
   const handleFormData = (values) => {
     var formData = new FormData();
-    formData.append("comment", values?.comment);
     if (!!file) formData.append("filename", file);
 
     return formData;
   };
+
   const handleTask = async (values) => {
+    if (data) {
+      try {
+        const res = await addComment(data, id);
+        if (res?.data?.success) {
+          // toast.success(`${res?.data?.message}`, {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          //   theme: "light",
+          // });
+          setCommentModal(false);
+        }
+      } catch (error) {
+        toast.error(`${error?.response?.data?.message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
     try {
       const res = await updateTask2(handleFormData(values), id);
       if (res?.data?.success) {
@@ -38,7 +70,7 @@ const CommentAndAttachmentModal = ({ commentModal, setCommentModal, id }) => {
         setCommentModal(false);
       }
     } catch (error) {
-      toast.error(`${error?.response?.data.message}`, {
+      toast.error(`${error?.response?.data?.message}`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -50,36 +82,71 @@ const CommentAndAttachmentModal = ({ commentModal, setCommentModal, id }) => {
       });
     }
   };
+
   return (
     <div>
       {/* Modal */}
       {commentModal && (
-        <div className="modal">
-          <div className="">
-            <div className="new_task">
-              <p>Update task title</p>
-              <div className="task_input">
-                <label htmlFor="comment">Add comment</label>
-                <input
-                  onChange={(e) =>
-                    setData({ ...data, comment: e.target.value })
-                  }
-                  type="text"
-                  name="comment"
-                />
-              </div>
-              <div className="task_input">
-                <label htmlFor="filename">Upload Attachment</label>
-                <input
-                  onChange={(e) => handlefile(e)}
-                  type="file"
-                  name="filename"
-                />
-              </div>
+        <div className="">
+          <div className="modal">
+            <div className="modal2">
+              {/* <p>dfghjk</p> */}
+              <div className="modal1">
+                <div>
+                  <Comment id={id} />
+                </div>
+                <div className="new_task">
+                  <div className="">
+                    <div>
+                      <div className="task_input">
+                        <label htmlFor="comment">Add comment</label>
+                        <input
+                          onChange={(e) =>
+                            setData({
+                              ...data,
+                              comment: e.target.value,
+                            })
+                          }
+                          type="text"
+                          name="comment"
+                        />
+                      </div>
+                      <div className="task_input">
+                        <label
+                          // onClick={handleAddAttachmentClick}
+                          htmlFor="filename"
+                          style={{ fontSize: "14px", cursor: "pointer" }}
+                        >
+                          <img
+                            src={Plus}
+                            alt=""
+                            style={{
+                              height: "15px",
+                              width: "15px",
+                            }}
+                          />
+                          Add Attachment
+                        </label>
+                        <input
+                          onChange={(e) => handlefile(e)}
+                          type="file"
+                          name="filename"
+                          ref={fileInputRef}
+                          id="filename"
+                          style={{ display: "none" }}
+                        />
+                        {file && <p>Selected file: {file.name}</p>}
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="task_btn">
-                <button onClick={() => setCommentModal(false)}>Cancel</button>
-                <button onClick={() => handleTask(data)}>Done</button>
+                  <div className="task_btn">
+                    <button onClick={() => setCommentModal(false)}>
+                      Cancel
+                    </button>
+                    <button onClick={() => handleTask(data)}>Done</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
